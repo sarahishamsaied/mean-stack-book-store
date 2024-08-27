@@ -1,0 +1,56 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-5">Add New Author</h1>
+  <form
+    [formGroup]="authorForm"
+    (ngSubmit)="onSubmit()"
+    class="grid grid-cols-1 gap-4"
+  >
+    <input
+      type="text"
+      formControlName="firstName"
+      placeholder="First Name"
+      class="input input-bordered w-full max-w-xs"
+    />
+    <div
+      class="text-red-400"
+      *ngIf="authorForm.get('firstName')?.errors?.['required']"
+    >
+      First name is required
+    </div>
+    <input
+      type="text"
+      formControlName="lastName"
+      placeholder="Last Name"
+      class="input input-bordered w-full max-w-xs"
+    />
+    <div
+      class="text-red-400"
+      *ngIf="authorForm.get('lastName')?.errors?.['required']"
+    >
+      Last Name is required
+    </div>
+    <textarea
+      formControlName="bio"
+      placeholder="Biography"
+      class="textarea textarea-bordered h-24"
+    ></textarea>
+    <input
+      type="date"
+      formControlName="birthDate"
+      class="input input-bordered w-full max-w-xs"
+    />
+    <div
+      *ngIf="authorForm.get('birthDate')?.errors?.['required']"
+      class="text-red-400"
+    >
+      Birth date is required
+    </div>
+    <div
+      *ngIf="authorForm.get('birthDate')?.errors?.['serverError']"
+      class="text-red-400"
+    >
+      {{ authorForm.get('birthDate')?.errors?.['serverError'] }}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

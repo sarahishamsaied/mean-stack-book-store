@@ -1,0 +1,44 @@
+<section class="p-4">
+  <div class="search-container px-4">
+    <app-search (search)="onSearch($event)"></app-search>
+  </div>
+  <a class="btn btn-primary ml-4 mt-5" href="/create-author">Create author</a>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    @for(author of authors(); track author.id) {
+    <app-card
+      [title]="author.firstName"
+      [subtitle]="'BirthDate ' + (author.birthDate | date : 'MMMM d, y')"
+      [description]="author.bio"
+      (edit)="onEditAuthor(author)"
+      (delete)="onDeleteAuthor(author)"
+      (cardClick)="handleCardClick(author.id)"
+    >
+    </app-card
+    >}
+  </div>
+
+  <app-pagination
+    [currentPage]="currentPage()"
+    [totalPages]="totalPages()"
+    [itemsPerPage]="pageSize()"
+    (pageChange)="onPageChange($event)"
+    (itemsPerPageChange)="onItemsPerPageChange($event)"
+  ></app-pagination>
+  @if(isEditModalOpen()) {
+  <app-edit-modal
+    [resource]="selectedAuthor()"
+    resourceName="Author"
+    [fields]="selectedAuthor() ? getAuthorFields(selectedAuthor()!) : []"
+    (close)="closeEditModal()"
+    (save)="saveEditedAuthor($event)"
+  ></app-edit-modal>
+  } @if (isDeleteModalOpen()) {
+  <app-delete-modal
+    resourceName="Author"
+    [resourceDisplayName]="selectedAuthor()?.firstName ?? ''"
+    (close)="closeDeleteModal()"
+    (confirm)="confirmDeleteAuthor()"
+  ></app-delete-modal
+  >}
+</section>

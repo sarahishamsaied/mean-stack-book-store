@@ -1,0 +1,171 @@
+<div class="p-8 shadow-lg rounded-lg" data-theme="cupcake">
+  <h2 class="text-2xl font-bold mb-4">Create Book</h2>
+
+  <form [formGroup]="createBookForm" (ngSubmit)="onSubmit()">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Book Title -->
+      <div class="mb-4">
+        <label for="title" class="text-sm font-medium text-gray-700"
+          >Book Title</label
+        >
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          class="input input-bordered mt-1 w-full border border-gray-300 rounded-md shadow-sm p-2"
+        />
+      </div>
+
+      <!-- ISBN -->
+      <div class="mb-4">
+        <label for="isbn" class="text-sm font-medium text-gray-700">ISBN</label>
+        <input
+          id="isbn"
+          type="text"
+          formControlName="isbn"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        />
+      </div>
+
+      <!-- Publish Date -->
+      <div class="mb-4">
+        <label for="publishDate" class="text-sm font-medium text-gray-700"
+          >Publish Date</label
+        >
+        <input
+          id="publishDate"
+          type="date"
+          formControlName="publishDate"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        />
+      </div>
+
+      <!-- Pages -->
+      <div class="mb-4">
+        <label for="pages" class="text-sm font-medium text-gray-700"
+          >Pages</label
+        >
+        <input
+          id="pages"
+          type="number"
+          formControlName="pages"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        />
+      </div>
+
+      <!-- Author -->
+      <div class="mb-4">
+        <label for="authorId" class="text-sm font-medium text-gray-700"
+          >Author</label
+        >
+        <select
+          id="authorId"
+          formControlName="authorId"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        >
+          <option *ngFor="let author of authors" [value]="author.id">
+            {{ author.firstName }} {{ author.lastName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Publisher -->
+      <div class="mb-4">
+        <label for="publisherId" class="text-sm font-medium text-gray-700"
+          >Publisher</label
+        >
+        <select
+          id="publisherId"
+          formControlName="publisherId"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        >
+          <option *ngFor="let publisher of publishers" [value]="publisher.id">
+            {{ publisher.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="cover" class="text-sm font-medium text-gray-700"
+          >Cover Image</label
+        >
+        <input
+          id="cover"
+          type="file"
+          (change)="onFileSelect($event)"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        />
+      </div>
+
+      <!-- Category -->
+      <div class="mb-4">
+        <label for="categoryId" class="text-sm font-medium text-gray-700"
+          >Category</label
+        >
+        <select
+          id="categoryId"
+          formControlName="categoryId"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        >
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-4">
+        <label for="price" class="text-sm font-medium text-gray-700"
+          >Price</label
+        >
+        <input
+          id="price"
+          type="number"
+          step="0.01"
+          formControlName="price"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        />
+      </div>
+
+      <!-- Stock -->
+      <div class="mb-4">
+        <label for="stock" class="text-sm font-medium text-gray-700"
+          >Stock</label
+        >
+        <input
+          id="stock"
+          type="number"
+          formControlName="stock"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        />
+      </div>
+
+      <!-- Description (Spans full width) -->
+      <div class="mb-4 md:col-span-2">
+        <label for="description" class="text-sm font-medium text-gray-700"
+          >Description</label
+        >
+        <textarea
+          id="description"
+          rows="3"
+          formControlName="description"
+          class="mt-1 input input-bordered w-full border border-gray-300 rounded-md shadow-sm p-2"
+        ></textarea>
+      </div>
+    </div>
+
+    <div>
+      <button type="submit" class="bg-blue-500 text-white px-4 p-2 rounded-md">
+        Save Book
+      </button>
+    </div>
+  </form>
+  <div
+    *ngIf="alertMessage"
+    class="alert"
+    [class.alert-success]="alertType === 'success'"
+    [class.alert-error]="alertType === 'error'"
+  >
+    {{ alertMessage }}
+  </div>
+</div>

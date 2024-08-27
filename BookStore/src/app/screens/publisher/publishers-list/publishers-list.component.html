@@ -1,0 +1,47 @@
+<section class="p-4">
+  <div class="search-container px-4">
+    <app-search (search)="onSearch($event)"></app-search>
+  </div>
+  <a class="btn btn-primary ml-4 mt-5" href="/create-publisher"
+    >Create publisher</a
+  >
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <app-card
+      *ngFor="let publisher of publishers()"
+      [title]="publisher.name"
+      [description]="publisher.location ?? ''"
+      (edit)="onEditPublisher(publisher)"
+      (delete)="onDeletePublisher(publisher)"
+      (cardClick)="handleCardClick(publisher.id)"
+    >
+    </app-card>
+  </div>
+
+  <app-pagination
+    [currentPage]="currentPage()"
+    [totalPages]="totalPages()"
+    [itemsPerPage]="pageSize()"
+    (pageChange)="onPageChange($event)"
+    (itemsPerPageChange)="onItemsPerPageChange($event)"
+  ></app-pagination>
+
+  <app-edit-modal
+    *ngIf="isEditModalOpen()"
+    [resource]="selectedPublisher()"
+    resourceName="Publisher"
+    [fields]="
+      selectedPublisher() ? getPublisherFields(selectedPublisher()!) : []
+    "
+    (close)="closeEditModal()"
+    (save)="saveEditedPublisher($event)"
+  ></app-edit-modal>
+
+  <app-delete-modal
+    *ngIf="isDeleteModalOpen()"
+    resourceName="Publisher"
+    [resourceDisplayName]="selectedPublisher()?.name ?? ''"
+    (close)="closeDeleteModal()"
+    (confirm)="confirmDeletePublisher()"
+  ></app-delete-modal>
+</section>

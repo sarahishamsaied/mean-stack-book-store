@@ -1,0 +1,12 @@
+<div class="modal modal-open">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Delete {{ resourceName }}</h3>
+    <p class="py-4">
+      Are you sure you want to delete "{{ resourceDisplayName }}"?
+    </p>
+    <div class="modal-action">
+      <button class="btn" (click)="close.emit()">Cancel</button>
+      <button class="btn btn-error" (click)="confirm.emit()">Delete</button>
+    </div>
+  </div>
+</div>

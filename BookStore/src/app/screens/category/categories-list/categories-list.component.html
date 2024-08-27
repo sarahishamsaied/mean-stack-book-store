@@ -1,0 +1,44 @@
+<section class="p-4">
+  <div class="search-container px-4">
+    <app-search (search)="onSearch($event)"></app-search>
+  </div>
+  <a class="btn btn-primary ml-4 mt-5" href="/create-category"
+    >Create category</a
+  >
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <app-card
+      *ngFor="let category of categories()"
+      [title]="category.name"
+      (edit)="onEditCategory(category)"
+      (delete)="onDeleteCategory(category)"
+      (cardClick)="handleCardClick(category.id)"
+    >
+    </app-card>
+  </div>
+
+  <app-pagination
+    [currentPage]="currentPage()"
+    [totalPages]="totalPages()"
+    [itemsPerPage]="pageSize()"
+    (pageChange)="onPageChange($event)"
+    (itemsPerPageChange)="onItemsPerPageChange($event)"
+  ></app-pagination>
+
+  <app-edit-modal
+    *ngIf="isEditModalOpen()"
+    [resource]="selectedCategory()"
+    resourceName="Category"
+    [fields]="selectedCategory() ? getCategoryFields(selectedCategory()!) : []"
+    (close)="closeEditModal()"
+    (save)="saveEditedCategory($event)"
+  ></app-edit-modal>
+
+  <app-delete-modal
+    *ngIf="isDeleteModalOpen()"
+    resourceName="Category"
+    [resourceDisplayName]="selectedCategory()?.name ?? ''"
+    (close)="closeDeleteModal()"
+    (confirm)="confirmDeleteCategory()"
+  ></app-delete-modal>
+</section>

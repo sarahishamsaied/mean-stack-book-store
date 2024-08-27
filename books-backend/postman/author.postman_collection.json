@@ -1,0 +1,107 @@
+{
+  "info": {
+    "_postman_id": "1",
+    "name": "Authors Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Author",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8081/api/v1/authors",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["api", "authors"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"firstName\": \"John\", \"lastName\": \"Doe\", \"bio\": \"Author bio\", \"birthDate\": \"1970-01-01\"}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Authors",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/v1/authors",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["api", "authors"]
+        },
+        "body": {}
+      },
+      "response": []
+    },
+    {
+      "name": "Get Author by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/v1/authors/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["api", "authors", "1"]
+        },
+        "body": {}
+      },
+      "response": []
+    },
+    {
+      "name": "Update Author",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8081/api/v1/authors/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["api", "authors", "1"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"firstName\": \"Jane\", \"lastName\": \"Doe\", \"bio\": \"Updated bio\", \"birthDate\": \"1980-01-01\"}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Author",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/v1/authors/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["api", "authors", "1"]
+        },
+        "body": {}
+      },
+      "response": []
+    }
+  ]
+}

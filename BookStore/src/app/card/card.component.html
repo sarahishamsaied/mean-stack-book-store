@@ -1,0 +1,32 @@
+<div
+  (click)="onCardClick()"
+  class="max-w-sm border border-neutral-600 hover:bg-opacity-15 bg-neutral-600 hover:border-neutral-500 bg-opacity-5 rounded overflow-hidden shadow-lg hover:shadow-2xl transition-shadow max-h-[630px] cursor-pointer relative p-6"
+>
+  @if (coverImage) {
+  <div class="min-h-[60%]">
+    <img
+      [src]="coverImage"
+      alt="{{ title }}"
+      class="w-full h-auto object-cover mb-4"
+    />
+  </div>
+  }
+
+  <div class="">
+    <div class="font-bold text-xl mb-2">{{ title }}</div>
+    <div class="font-light italic text-lg mb-2">{{ subtitle }}</div>
+    @if (subtitle2) {
+    <div class="font-light italic text-lg mb-2">{{ subtitle2 }}</div>
+
+    } @if (description) {
+
+    <p class="text-gray-400 text-base">
+      {{ truncatedDescription }}
+    </p>
+    }
+  </div>
+  <div class="flex space-x-2 mt-5">
+    <button (click)="onEdit($event)" class="btn btn-primary">Edit</button>
+    <button (click)="onDelete($event)" class="btn btn-secondary">Delete</button>
+  </div>
+</div>

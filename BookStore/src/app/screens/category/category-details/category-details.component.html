@@ -1,0 +1,47 @@
+@defer {
+<div class="container mx-auto w-full h-screen">
+  <div
+    class="max-w-xl mx-auto w-full h-full shadow-lg rounded-lg overflow-hidden"
+  >
+    @if (category(); as categoryDetails) {
+
+    <div class="p-4">
+      <h1 class="text-2xl font-bold">{{ categoryDetails.name }}</h1>
+    </div>
+
+    <div class="p-4">
+      <h2 class="text-2xl font-bold">{{ categoryDetails.name }} Books</h2>
+      <ul class="list-disc pl-5 h-[500px] overflow-y-scroll">
+        <li *ngFor="let book of categoryDetails?.books" class="mt-2">
+          <a
+            (click)="viewBookDetails(book.id)"
+            class="text-blue-500 cursor-pointer"
+            >{{ book.title }}</a
+          >
+        </li>
+      </ul>
+    </div>
+    }
+  </div>
+
+  @if (isEditModalOpen()) {
+  <app-edit-modal
+    [resource]="category()"
+    resourceName="Category"
+    [fields]="getCategoryFields()"
+    (close)="closeEditModal()"
+    (save)="saveEditedCategory($event)"
+  >
+  </app-edit-modal>
+  } @if (isDeleteModalOpen()) {
+  <app-delete-modal
+    (close)="closeDeleteModal()"
+    (confirm)="confirmDeleteCategory()"
+    [resourceDisplayName]="category()?.name ?? 'category'"
+  >
+  </app-delete-modal>
+  }
+</div>
+} @loading {
+<div class="loading-spinner"></div>
+}

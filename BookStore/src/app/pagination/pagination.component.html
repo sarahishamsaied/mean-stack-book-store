@@ -1,0 +1,30 @@
+<div class="flex justify-between items-center p-4">
+  <button
+    class="btn btn-secondary"
+    (click)="onPreviousClick()"
+    [disabled]="currentPage === 0"
+  >
+    &larr; Previous
+  </button>
+
+  <div class="flex items-center">
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    <select
+      class="ml-4 p-2 border rounded"
+      [value]="itemsPerPage"
+      (change)="onItemsPerPageChange($event)"
+    >
+      <option *ngFor="let size of [10, 20, 50]" [value]="size">
+        {{ size }} per page
+      </option>
+    </select>
+  </div>
+
+  <button
+    class="btn btn-primary"
+    (click)="onNextClick()"
+    [disabled]="currentPage >= totalPages - 1"
+  >
+    Next &rarr;
+  </button>
+</div>

@@ -1,0 +1,62 @@
+@defer {
+<main>
+  <div class="flex justify-between items-center p-5">
+    <a class="btn btn-primary" href="/create-book">Create a book</a>
+    <app-search (search)="onSearch($event)"></app-search>
+    <select
+      [(ngModel)]="selectedAuthorId"
+      (change)="onAuthorFilterChange($event)"
+      class="border border-gray-300 rounded-md py-2 px-4"
+    >
+      <option [value]="null">All Authors</option>
+      <option *ngFor="let author of authors()" [value]="author.id">
+        {{ author.firstName }} {{ author.lastName }}
+      </option>
+    </select>
+  </div>
+  <h1 class="text-4xl font-semibold pl-6">All Books</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    @for (book of filteredBooks(); track book.id) {
+    <app-card
+      (cardClick)="handleCardClick(book.id)"
+      [title]="book.title"
+      [description]="book.description"
+      [subtitle]="book.author.firstName + ' ' + book.author.lastName"
+      [subtitle2]="book.category.name"
+      [coverImage]="book.cover"
+      (edit)="onEditBook(book)"
+      (delete)="onDeleteBook(book)"
+    >
+    </app-card>
+    }
+  </div>
+
+  <app-pagination
+    [currentPage]="currentPage()"
+    [totalPages]="totalPages()"
+    [itemsPerPage]="pageSize()"
+    (pageChange)="onPageChange($event)"
+    (itemsPerPageChange)="onItemsPerPageChange($event)"
+  ></app-pagination>
+  @if(isEditModalOpen()){
+  <app-edit-modal
+    [resource]="selectedBook()"
+    resourceName="Book"
+    [fields]="selectedBook() ? getBookFields(selectedBook()!) : []"
+    (close)="closeEditModal()"
+    (save)="saveEditedBook($event)"
+  ></app-edit-modal>
+  } @if(isDeleteModalOpen()){
+
+  <app-delete-modal
+    resourceName="Book"
+    [resourceDisplayName]="selectedBook()?.title ?? ''"
+    (close)="closeDeleteModal()"
+    (confirm)="confirmDeleteBook()"
+  ></app-delete-modal>
+  }
+</main>
+
+} @loading (after 0ms; minimum 1s) {
+<div class="loading-spinner"></div>
+}
